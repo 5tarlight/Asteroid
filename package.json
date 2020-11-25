@@ -1,0 +1,10 @@
+{
+  "name": "Asteroid",
+  "version": "1.0.0",
+  "description": "asteroid discord game bot",
+  "main": "dist/index.js",
+  "repository": "https://github.com/5tarlight/Asteroid",
+  "author": "Kim Kyu San <developerstarlight@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
