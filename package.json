@@ -1,5 +1,5 @@
 {
-  "name": "Asteroid",
+  "name": "asteroid",
   "version": "1.0.0",
   "description": "asteroid discord game bot",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
-    "start": "node dist",
+    "start": "node dist/index.js",
     "build": "tsc -b"
   }
 }
