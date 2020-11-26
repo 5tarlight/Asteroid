@@ -8,8 +8,7 @@
     "noImplicitAny": false,
     "sourceRoot": "./src",
     "outDir": "./dist",
-    "removeComments": true,
-    "strictNullChecks": true
+    "removeComments": true
   },
   "exclude": ["node_modules", "./dist/**/*"],
   "include": ["./src/**/*", ".env"]

@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
-import config, { checkEnv } from "./configure";
+import { checkEnv } from "./configure";
+import Asteroid from "./bot/Asteroid";
 
 dotenv.config()
 checkEnv()
 
-console.dir(config().botToken)
+const client = new Asteroid()
+client.login()
