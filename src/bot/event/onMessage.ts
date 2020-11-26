@@ -3,6 +3,10 @@ import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
 
+const commands = [
+
+]
+
 function onMessage (client: Asteroid, msg: Message) {
   if (msg.author.bot) return
   // @ts-ignore
