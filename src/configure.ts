@@ -9,7 +9,10 @@ export const checkEnv = () => {
 }
 
 const config = () => ({
-  botToken: process.env.BOT_TOKEN
+  botToken: process.env.BOT_TOKEN,
+  prefix: process.env.PREFIX,
+  primaryServer: process.env.PRIMARY_SERVER_ID,
+  primaryChannel: process.env.PRIMARY_CHANNEL_ID
 })
 
 export default config

@@ -1,6 +1,7 @@
-import { Client } from 'discord.js'
+import {Client, Message} from 'discord.js'
 import config from "../configure";
 import Logger from "../Logger";
+import onMessage from "./event/onMessage";
 
 class Asteroid extends Client {
   // @ts-ignore
@@ -11,6 +12,10 @@ class Asteroid extends Client {
     this.on('ready', () => {
       // @ts-ignore
       Logger.info(`Login success ${this.user.tag}`)
+    })
+
+    this.on('message', (msg: Message) => {
+      onMessage(this, msg)
     })
 
     super.login(t)
