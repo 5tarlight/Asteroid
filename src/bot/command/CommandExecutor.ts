@@ -10,18 +10,9 @@ export interface CommandInfo {
   isAdminOnly: boolean
 }
 
-class CommandExecutor {
-  public execute(client: Asteroid, msg: Message, args?: string[]): void {
-    Logger.err('Execute command is not defined')
-  }
-
-  public info: CommandInfo = {
-    name: 'not-defined',
-    alias: [],
-    desc: 'Warning! this command is not defined correctly',
-    props: -1,
-    isAdminOnly: false
-  }
+abstract class CommandExecutor {
+  public abstract execute(client: Asteroid, msg: Message, args?: string[]): void
+  public abstract info: CommandInfo;
 }
 
 export default CommandExecutor
