@@ -1,5 +1,4 @@
 import InvalidEnvError from "./error/InvalidEnvError";
-import db from './util/Database'
 
 export const checkEnv = () => {
   const configs = Object.values(config())
@@ -18,6 +17,7 @@ const config = () => ({
   prefix: process.env.PREFIX,
   primaryServer: process.env.PRIMARY_SERVER_ID,
   primaryChannel: process.env.PRIMARY_CHANNEL_ID,
+  admin: process.env.ADMIN,
   db: {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,

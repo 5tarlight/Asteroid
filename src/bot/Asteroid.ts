@@ -1,8 +1,9 @@
-import {Client, Message} from 'discord.js'
+import {Client, Guild, Message} from 'discord.js'
 import config from "../configure";
 import Logger from "../Logger";
 import onMessage from "./event/onMessage";
 import Database from "../util/Database";
+import onGuildCreate from "./event/onGuildCreate";
 
 class Asteroid extends Client {
   // @ts-ignore
@@ -15,9 +16,8 @@ class Asteroid extends Client {
       Logger.info(`Login success ${this.user.tag}`)
     })
 
-    this.on('message', (msg: Message) => {
-      onMessage(this, msg)
-    })
+    this.on('message', msg => onMessage(this, msg))
+    this.on('guildCreate', guild => onGuildCreate(this, guild))
 
     this.on('error', e => Logger.err(e.toString()))
     this.on('debug', e => Logger.debug(e.toString()))
