@@ -18,7 +18,9 @@ class Asteroid extends Client {
       onMessage(this, msg)
     })
 
-    super.login(t)
+    super.login(t).then(() => {
+      this.user?.setActivity(`${config().prefix}help`, { type: 'LISTENING'})
+    })
   }
 }
 
