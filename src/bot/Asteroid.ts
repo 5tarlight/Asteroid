@@ -18,6 +18,10 @@ class Asteroid extends Client {
       onMessage(this, msg)
     })
 
+    this.on('error', e => Logger.err(e.toString()))
+    this.on('debug', e => Logger.info(e.toString()))
+    this.on('warn', e => Logger.warn(e.toString()))
+
     super.login(t).then(() => {
       this.user?.setActivity(`${config().prefix}help`, { type: 'LISTENING'})
     })
