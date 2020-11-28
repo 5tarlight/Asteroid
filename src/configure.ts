@@ -1,4 +1,5 @@
 import InvalidEnvError from "./error/InvalidEnvError";
+import db from './util/Database'
 
 export const checkEnv = () => {
   const configs = Object.values(config())
