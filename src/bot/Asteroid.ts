@@ -20,7 +20,7 @@ class Asteroid extends Client {
     })
 
     this.on('error', e => Logger.err(e.toString()))
-    this.on('debug', e => Logger.info(e.toString()))
+    this.on('debug', e => Logger.debug(e.toString()))
     this.on('warn', e => Logger.warn(e.toString()))
 
     const db = new Database()

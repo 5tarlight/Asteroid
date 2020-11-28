@@ -38,6 +38,11 @@ class Logger {
     console.log('[err] '.red + Logger.getTimeStamp().white + msg.white)
     Logger.println('[err] ' + Logger.getTimeStamp() + msg)
   }
+
+  static debug(msg: string): void {
+    console.log('[debug] '.green + Logger.getTimeStamp().white + msg.white)
+    Logger.println('[debug] ' + Logger.getTimeStamp() + msg)
+  }
 }
 
 export default Logger
