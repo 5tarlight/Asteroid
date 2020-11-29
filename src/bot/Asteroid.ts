@@ -1,4 +1,4 @@
-import {Client, Guild, Message} from 'discord.js'
+import {Client, Guild} from 'discord.js'
 import config from "../configure";
 import Logger from "../Logger";
 import onMessage from "./event/onMessage";
@@ -6,6 +6,13 @@ import Database from "../util/Database";
 import onGuildCreate from "./event/onGuildCreate";
 
 class Asteroid extends Client {
+  public db: Database;
+
+  constructor() {
+    super()
+    this.db = new Database()
+  }
+
   // @ts-ignore
   login(token?: string): void {
     let t: string | undefined = token
@@ -23,10 +30,16 @@ class Asteroid extends Client {
     this.on('debug', e => Logger.debug(e.toString()))
     this.on('warn', e => Logger.warn(e.toString()))
 
-    const db = new Database()
-
     super.login(t).then(() => {
-      this.user?.setActivity(`${config().prefix}help`, { type: 'LISTENING'})
+      const getGuildData = (c: Guild) => {
+        if (!c.name) {
+          setTimeout(() => getGuildData(c), 1000)
+        } else {
+          onGuildCreate(this, c).then(() => Logger.debug(`Success to load ${c.name} (${c.id}`))
+        }
+      }
+
+      this.guilds.cache.forEach(getGuildData)
     })
   }
 }
