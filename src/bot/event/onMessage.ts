@@ -4,9 +4,11 @@ import Asteroid from "../Asteroid";
 import config from "../../configure";
 import Ping from "../command/Ping";
 import CommandExecutor from "../command/CommandExecutor";
+import Help from "../command/Help";
 
-const commands = [
-  new Ping()
+export const commands = [
+  new Ping(),
+  new Help()
 ]
 
 function onMessage (client: Asteroid, msg: Message) {

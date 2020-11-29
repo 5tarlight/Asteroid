@@ -1,4 +1,3 @@
-import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import { Message } from "discord.js";
 
@@ -11,7 +10,7 @@ export interface CommandInfo {
 }
 
 abstract class CommandExecutor {
-  public abstract execute(client: Asteroid, msg: Message, args?: string[]): void
+  public abstract execute(client: Asteroid, msg: Message, args: string[]): void
   public abstract info: CommandInfo;
 }
 
