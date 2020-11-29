@@ -37,20 +37,20 @@ class Help extends CommandExecutor {
       msg.channel.send(embed)
     } else {
       let embed = new MessageEmbed()
-        .setTitle('Help')
+        .setTitle('도움말')
 
       commands.forEach((cmd: CommandExecutor, i: number) => {
         if (i !== 0 && i % 20 === 0) {
           msg.author.send(embed)
           embed = new MessageEmbed()
-            .setTitle('Help (continue)')
+            .setTitle('도움말 (계속)')
         }
 
         embed.addField(cmd.info.name, cmd.info.desc, true)
       })
 
       msg.author.send(embed)
-      msg.channel.send('help message sent, check your dm!')
+      msg.channel.send('DM으로 전송되었습니다.')
     }
   }
 }
