@@ -2,7 +2,7 @@ import CommandExecutor, {CommandInfo} from "./CommandExecutor";
 import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 
-class Ping extends CommandExecutor {
+class Ping implements CommandExecutor {
   info: CommandInfo = {
     name: 'ping',
     isAdminOnly: false,

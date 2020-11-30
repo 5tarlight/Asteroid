@@ -3,7 +3,7 @@ import Asteroid from "../Asteroid";
 import {Message, MessageEmbed} from "discord.js";
 import {commands} from '../event/onMessage'
 
-class Help extends CommandExecutor {
+class Help implements CommandExecutor {
   info: CommandInfo = {
     isAdminOnly: false,
     alias: ['도움', '도움말'],

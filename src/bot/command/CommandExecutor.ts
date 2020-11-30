@@ -9,9 +9,9 @@ export interface CommandInfo {
   isAdminOnly: boolean
 }
 
-abstract class CommandExecutor {
-  public abstract execute(client: Asteroid, msg: Message, args: string[]): void
-  public abstract info: CommandInfo;
+interface CommandExecutor {
+  execute(client: Asteroid, msg: Message, args: string[]): void
+  info: CommandInfo;
 }
 
 export default CommandExecutor
