@@ -5,7 +5,7 @@ export interface MinableItem {
 }
 
 interface Minable {
-  items: string[]
+  items: MinableItem[]
 }
 
 export default Minable
