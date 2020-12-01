@@ -1,4 +1,4 @@
-import Item, {ItemInfo} from "./Item";
+import Item, { ItemInfo } from "./Item";
 
 class Dirt implements Item {
   public info: ItemInfo = {

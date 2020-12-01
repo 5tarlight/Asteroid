@@ -1,7 +1,7 @@
-import CommandExecutor, {CommandInfo} from "./CommandExecutor";
+import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import {Message, MessageEmbed} from "discord.js";
-import {commands} from '../event/onMessage'
+import { Message, MessageEmbed } from "discord.js";
+import { commands } from '../event/onMessage'
 
 class Help implements CommandExecutor {
   info: CommandInfo = {

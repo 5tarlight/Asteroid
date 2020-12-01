@@ -1,7 +1,7 @@
 import Asteroid from "../Asteroid";
-import {Guild} from "discord.js";
-import {Server} from "../../util/Database";
-import {Op} from 'sequelize'
+import { Guild } from "discord.js";
+import { Server } from "../../util/Database";
+import { Op } from 'sequelize'
 import Logger from "../../Logger";
 
 async function onGuildCreate(client: Asteroid, guild: Guild) {

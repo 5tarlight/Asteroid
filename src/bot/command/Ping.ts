@@ -1,4 +1,4 @@
-import CommandExecutor, {CommandInfo} from "./CommandExecutor";
+import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 

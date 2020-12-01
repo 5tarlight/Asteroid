@@ -1,5 +1,5 @@
-import Planet, {PlanetInfo} from "../Planet";
-import Minable, {MinableItem} from "../Minable";
+import Planet, { PlanetInfo } from "../Planet";
+import Minable, { MinableItem } from "../Minable";
 
 class Earth implements Planet, Minable {
   info: PlanetInfo = {

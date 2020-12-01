@@ -1,5 +1,5 @@
 import 'colors'
-import {appendFileSync, existsSync, mkdirSync} from 'fs'
+import { appendFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 
 class Logger {
