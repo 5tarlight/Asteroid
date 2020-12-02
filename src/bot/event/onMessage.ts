@@ -6,10 +6,12 @@ import Ping from "../command/Ping";
 import CommandExecutor from "../command/CommandExecutor";
 import Help from "../command/Help";
 import onNewMemberDetect from "./onNewMemberDetect";
+import ItemInfo from "../command/ItemInfo";
 
 export const commands = [
   new Ping(),
-  new Help()
+  new Help(),
+  new ItemInfo()
 ]
 
 function onMessage (client: Asteroid, msg: Message) {
