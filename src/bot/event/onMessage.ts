@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import {Message, MessageEmbed, User} from "discord.js";
 import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
@@ -19,6 +19,13 @@ function onMessage (client: Asteroid, msg: Message) {
   // @ts-ignore
   if (!msg.content.startsWith(cfg.prefix)) return
 
+  const sendNewMember = (msg: Message) => {
+    const embed = new MessageEmbed()
+      .setTitle('신규 유저 추가됨')
+      .setDescription('<@352755226224361482>에게 연락해 데이터를 삭제 할 수 있습니다.')
+
+    msg.channel.send(embed)
+  }
   const checkPermission = (): boolean => {
     // @ts-ignore
     return cfg.admin.split(' ').includes(msg.author.id)
@@ -33,13 +40,15 @@ function onMessage (client: Asteroid, msg: Message) {
   const executeCmd = async (cmd: CommandExecutor, client: Asteroid, msg: Message, args: string[]) => {
     if (cmd.info.isAdminOnly) {
       if (checkPermission()) {
-        await onNewMemberDetect(client, msg.author)
+        const isNewMember = await onNewMemberDetect(client, msg.author)
+        if (isNewMember) sendNewMember(msg)
         cmd.execute(client, msg, args)
       } else {
         denyPermission()
       }
     } else {
-      await onNewMemberDetect(client, msg.author)
+      const isNewMember = await onNewMemberDetect(client, msg.author)
+      if (isNewMember) sendNewMember(msg)
       cmd.execute(client, msg, args)
     }
   }
