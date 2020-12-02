@@ -6,7 +6,7 @@ class Ping implements CommandExecutor {
   info: CommandInfo = {
     name: 'ping',
     isAdminOnly: false,
-    desc: 'Show ping of bot',
+    desc: '봇의 지연 시간을 보내줍니다.',
     alias: ['핑'],
     props: 0
   }

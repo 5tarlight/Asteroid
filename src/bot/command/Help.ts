@@ -9,7 +9,7 @@ class Help implements CommandExecutor {
     alias: ['도움', '도움말'],
     name: 'help',
     props: 1,
-    desc: 'Get command list or command\'s information'
+    desc: '명령어의 도움말과 정보를 보여줍니다.'
   }
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
@@ -28,7 +28,8 @@ class Help implements CommandExecutor {
       }
 
       const embed = new MessageEmbed()
-        .setTitle('Help')
+        .setTitle('도움말')
+        .setDescription(`${cmd[0].info.name}, ${cmd[0].info.alias.join(', ')}`)
 
       cmd.forEach(c => {
         embed.addField(c.info.name, c.info.desc, true)
