@@ -1,4 +1,4 @@
-import {Message, MessageEmbed, User} from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
