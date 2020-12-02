@@ -1,4 +1,5 @@
 interface UsableItem {
+  desc: string
   onUse(): void
 }
 
