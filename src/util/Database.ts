@@ -3,6 +3,7 @@ import config from '../configure'
 import Logger from "../Logger";
 
 export class Server extends Model {}
+export class Users extends Model {}
 
 class Database {
   public seq: Sequelize
@@ -45,6 +46,28 @@ class Database {
     })
 
     Server.sync({ alter: true })
+
+    Users.init({
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+      },
+      discord: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    }, {
+      sequelize: this.seq,
+      modelName: 'user',
+      tableName: 'user',
+      timestamps: true,
+      createdAt: true,
+      updatedAt: true
+    })
+
+    Users.sync({ alter: true })
   }
 }
 
