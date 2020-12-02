@@ -5,6 +5,7 @@ import config from "../../configure";
 import Ping from "../command/Ping";
 import CommandExecutor from "../command/CommandExecutor";
 import Help from "../command/Help";
+import onNewMemberDetect from "./onNewMemberDetect";
 
 export const commands = [
   new Ping(),
@@ -29,14 +30,16 @@ function onMessage (client: Asteroid, msg: Message) {
 
     msg.channel.send(embed)
   }
-  const executeCmd = (cmd: CommandExecutor, client: Asteroid, msg: Message, args: string[]) => {
+  const executeCmd = async (cmd: CommandExecutor, client: Asteroid, msg: Message, args: string[]) => {
     if (cmd.info.isAdminOnly) {
       if (checkPermission()) {
+        await onNewMemberDetect(client, msg.author)
         cmd.execute(client, msg, args)
       } else {
         denyPermission()
       }
     } else {
+      await onNewMemberDetect(client, msg.author)
       cmd.execute(client, msg, args)
     }
   }
