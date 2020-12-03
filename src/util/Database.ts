@@ -67,6 +67,30 @@ class Database {
       updatedAt: true
     })
 
+    Items.init({
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      name_ko: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
+    }, {
+      sequelize: this.seq,
+      modelName: 'item',
+      tableName: 'item',
+      timestamps: true,
+      createdAt: true,
+      updatedAt: true
+    })
+
     Inventory.init({
       id: {
         type: DataTypes.INTEGER,
@@ -102,6 +126,7 @@ class Database {
     const option = { alter: true }
     Users.sync(option)
     Server.sync(option)
+    Items.sync(option)
     Inventory.sync(option)
   }
 }
