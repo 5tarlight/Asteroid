@@ -4,6 +4,7 @@ import Logger from "../Logger";
 
 export class Server extends Model {}
 export class Users extends Model {}
+export class Inventory extends Model {}
 
 class Database {
   public seq: Sequelize
@@ -68,6 +69,38 @@ class Database {
     })
 
     Users.sync({ alter: true })
+
+    Inventory.init({
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+      },
+      owner: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      item: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+      },
+      meta: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      }
+    }, {
+      sequelize: this.seq,
+      modelName: 'inventory',
+      tableName: 'inventory',
+      timestamps: true,
+      createdAt: true,
+      updatedAt: true
+    })
   }
 }
 
