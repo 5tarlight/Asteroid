@@ -4,6 +4,7 @@ import Logger from "../Logger";
 
 export class Server extends Model {}
 export class Users extends Model {}
+export class Items extends Model {}
 export class Inventory extends Model {}
 
 class Database {
@@ -101,6 +102,8 @@ class Database {
       createdAt: true,
       updatedAt: true
     })
+
+    Inventory.sync({ alter: true })
   }
 }
 
