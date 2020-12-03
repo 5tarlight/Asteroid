@@ -47,8 +47,6 @@ class Database {
       updatedAt: true
     })
 
-    Server.sync({ alter: true })
-
     Users.init({
       id: {
         type: DataTypes.INTEGER,
@@ -68,8 +66,6 @@ class Database {
       createdAt: true,
       updatedAt: true
     })
-
-    Users.sync({ alter: true })
 
     Inventory.init({
       id: {
@@ -103,7 +99,10 @@ class Database {
       updatedAt: true
     })
 
-    Inventory.sync({ alter: true })
+    const option = { alter: true }
+    Users.sync(option)
+    Server.sync(option)
+    Inventory.sync(option)
   }
 }
 
