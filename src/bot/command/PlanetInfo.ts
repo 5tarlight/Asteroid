@@ -12,8 +12,8 @@ class PlanetInfo implements CommandExecutor {
   }
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
-  }
 
+  }
 }
 
 export default PlanetInfo

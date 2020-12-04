@@ -1,6 +1,11 @@
+export enum Galaxy {
+  Solar
+}
+
 export interface PlanetInfo {
   name: string,
-  dockable: boolean
+  dockable: boolean,
+  system: Galaxy
 }
 
 interface Planet {
