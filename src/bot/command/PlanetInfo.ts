@@ -38,6 +38,7 @@ class PlanetInfo implements CommandExecutor {
 
     const embed = new MessageEmbed()
       .setTitle(planet?.info.name)
+      .addField('착륙 가능?', planet.info.dockable ? '예' : '아니요')
 
     try {
       const pl = planet as unknown as Minable
