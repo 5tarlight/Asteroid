@@ -4,6 +4,8 @@ import { Message, MessageEmbed } from "discord.js";
 import config from "../../configure";
 import PlanetManager from "../../game/universe/PlanetManager";
 import Minable from "../../game/universe/Minable";
+import ItemManager from "../../game/item/ItemManager";
+import Logger from "../../Logger";
 
 class PlanetInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -48,7 +50,20 @@ class PlanetInfo implements CommandExecutor {
       embed.addField('채광 가능?', '예', false)
 
       pl.items.forEach(mine => {
-        embed.addField(mine.item, `${mine.prob * 100}%`, true)
+        const item = ItemManager.getItem(mine.item)
+
+        if (!item) {
+          Logger.err(`Cannot find item ${mine.item} (${__filename})`)
+
+          const ee = new MessageEmbed()
+            .setTitle('Internal Error')
+            .setDescription('개발자에게 연락해 주십시오.')
+
+          msg.channel.send(ee)
+          return
+        }
+
+        embed.addField(item?.info.name, `${mine.prob * 100}%`, true)
       })
     } catch (e) {
       embed.addField('채광 가능?', '아니요', false)
