@@ -1,8 +1,10 @@
 import Earth from "./solar/Earth";
 import Planet from "./Planet";
+import Sun from "./solar/Sun";
 
 class PlanetManager {
   public static planets: Planet[] = [
+    new Sun(),
     new Earth()
   ]
 
