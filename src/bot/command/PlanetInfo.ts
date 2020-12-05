@@ -1,6 +1,9 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
+import config from "../../configure";
+import PlanetManager from "../../game/universe/PlanetManager";
+import Minable from "../../game/universe/Minable";
 
 class PlanetInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -12,7 +15,45 @@ class PlanetInfo implements CommandExecutor {
   }
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
+    if (args.length === 0) {
+      const embed = new MessageEmbed()
+        .setTitle('사용법')
+        .setDescription(`${config().prefix}planetinfo <행성이름>`)
 
+      msg.channel.send(embed)
+      return
+    }
+
+    const name = args[0]
+    const planet = PlanetManager.getPlanet(name)
+
+    if (planet == null) {
+      const embed = new MessageEmbed()
+        .setTitle('Error 404: NotFound')
+        .setDescription(`행성 ${name}을 찾을 수 없습니다.`)
+
+      msg.channel.send(embed)
+      return
+    }
+
+    const embed = new MessageEmbed()
+      .setTitle(planet?.info.name)
+
+    try {
+      const pl = planet as unknown as Minable
+
+      if (!pl.items) throw new Error()
+
+      embed.addField('채광 가능?', '예', false)
+
+      pl.items.forEach(mine => {
+        embed.addField(mine.item, `${mine.prob * 100}%`, true)
+      })
+    } catch (e) {
+      embed.addField('채광 가능?', '아니요', false)
+    }
+
+    msg.channel.send(embed)
   }
 }
 

@@ -7,11 +7,13 @@ import CommandExecutor from "../command/CommandExecutor";
 import Help from "../command/Help";
 import onNewMemberDetect from "./onNewMemberDetect";
 import ItemInfo from "../command/ItemInfo";
+import PlanetInfo from "../command/PlanetInfo";
 
 export const commands = [
   new Ping(),
   new Help(),
-  new ItemInfo()
+  new ItemInfo(),
+  new PlanetInfo(),
 ]
 
 function onMessage (client: Asteroid, msg: Message) {
