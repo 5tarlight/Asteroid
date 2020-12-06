@@ -4,11 +4,13 @@ import Item from "./Item";
 import { Items } from "../../util/Database";
 import { Op } from "sequelize";
 import Logger from "../../Logger";
+import IronOre from "./IronOre";
 
 class ItemManager {
   static items = {
     dirt: new Dirt(),
-    stone: new Stone()
+    stone: new Stone(),
+    ironOre: new IronOre()
   }
 
   public static init() {
