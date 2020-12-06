@@ -18,6 +18,7 @@ const config = () => ({
   primaryServer: process.env.PRIMARY_SERVER_ID,
   primaryChannel: process.env.PRIMARY_CHANNEL_ID,
   admin: process.env.ADMIN,
+  development: process.env.DEV,
   db: {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
