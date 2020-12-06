@@ -1,6 +1,6 @@
 interface Rocket {
   maxFuel: number,
-  fule: number,
+  fuel: number,
   tier: number,
   maxDurability: number
   durability: number
