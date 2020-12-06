@@ -5,7 +5,8 @@ class Earth implements Planet, Minable {
   info: PlanetInfo = {
     dockable: true,
     name: '지구',
-    system: Galaxy.Solar
+    system: Galaxy.Solar,
+    exp: 0
   }
   items: MinableItem[] = [
     {

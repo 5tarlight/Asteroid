@@ -5,7 +5,8 @@ export enum Galaxy {
 export interface PlanetInfo {
   name: string,
   dockable: boolean,
-  system: Galaxy
+  system: Galaxy,
+  exp: number
 }
 
 interface Planet {

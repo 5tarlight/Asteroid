@@ -4,7 +4,8 @@ class Sun implements Planet {
   info: PlanetInfo = {
     name: '태양',
     dockable: false,
-    system: Galaxy.Solar
+    system: Galaxy.Solar,
+    exp: 0
   }
 }
 
