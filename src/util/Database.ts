@@ -57,6 +57,11 @@ class Database {
       discord: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      exp: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       }
     }, {
       sequelize: this.seq,
