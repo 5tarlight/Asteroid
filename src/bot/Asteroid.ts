@@ -22,6 +22,7 @@ class Asteroid extends Client {
     this.on('ready', () => {
       // @ts-ignore
       Logger.info(`Login success ${this.user.tag}`)
+      this.user?.setActivity(`${config().prefix}help`)
     })
 
     this.on('message', msg => onMessage(this, msg))
