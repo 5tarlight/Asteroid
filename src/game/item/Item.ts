@@ -1,7 +1,8 @@
 export interface ItemInfo {
   name: string,
   count: number,
-  meta: number
+  meta: number,
+  exp: number
 }
 
 interface Item {
