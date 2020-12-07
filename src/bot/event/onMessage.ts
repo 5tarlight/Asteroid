@@ -8,12 +8,14 @@ import Help from "../command/Help";
 import onNewMemberDetect from "./onNewMemberDetect";
 import ItemInfo from "../command/ItemInfo";
 import PlanetInfo from "../command/PlanetInfo";
+import RocketInfo from "../command/RocketInfo";
 
 export const commands = [
   new Ping(),
   new Help(),
   new ItemInfo(),
   new PlanetInfo(),
+  new RocketInfo(),
 ]
 
 function onMessage (client: Asteroid, msg: Message) {
