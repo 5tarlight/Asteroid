@@ -2,6 +2,7 @@ import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 import config from "../../configure";
+import RocketManager from "../../game/shuttle/RocketManager";
 
 class RocketInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -22,7 +23,24 @@ class RocketInfo implements CommandExecutor {
       return
     }
 
+    const rocket = RocketManager.getRocket(args.join(' '))
 
+    if (rocket == null) {
+      const embed = new MessageEmbed()
+        .setTitle('Error 404: NotFound')
+        .setDescription(`로켓 ${args.join(' ')}를 찾을 수 없습니다.`)
+
+      msg.channel.send(embed)
+      return
+    }
+
+    const embed = new MessageEmbed()
+      .setTitle(rocket.name)
+      .setDescription(`${rocket.tier}레벨`)
+      .addField('최대 연료', rocket.maxFuel, true)
+      .addField('최대 내구도', rocket.maxDurability, true)
+
+    msg.channel.send(embed)
   }
 }
 
