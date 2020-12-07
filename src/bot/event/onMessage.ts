@@ -44,14 +44,8 @@ function onMessage (client: Asteroid, msg: Message) {
     msg.channel.send(embed)
   }
   const executeCmd = async (cmd: CommandExecutor, client: Asteroid, msg: Message, args: string[]) => {
-    if (cfg.development) {
-      if (!checkPermission()) {
-        denyPermission()
-        return
-      }
-    }
-
-    if (cmd.info.isAdminOnly) {
+    console.dir(cfg.development)
+    if (cfg.development == 'true' || cmd.info.isAdminOnly) {
       if (checkPermission()) {
         const isNewMember = await onNewMemberDetect(client, msg.author)
         if (isNewMember) sendNewMember(msg)
