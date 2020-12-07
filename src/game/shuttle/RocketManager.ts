@@ -7,9 +7,11 @@ class RocketManager {
   ]
 
   public static getRocket(name: string): Rocket | null {
-    const rct = this.rockets.filter(
-      r => r.name == name ||
-      r.name.split(' ').join('') == name
+    const token = (r: Rocket) => r.name.split(' ')
+    const rct = this.rockets.filter(r =>
+      token(r).join('') == name.split(' ').join('') ||
+        token(r).length > 1 &&
+        token(r).slice(0, token(r).length - 1).join('') == name.split(' ').join('')
     )
     if (rct.length == 0) return null
     else return rct[0]
