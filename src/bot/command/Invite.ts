@@ -1,6 +1,6 @@
 import CommandExecutor, {CommandInfo} from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import {Message, MessageEmbed, Permissions} from "discord.js";
+import { Message, MessageEmbed, Permissions } from "discord.js";
 
 class Invite implements CommandExecutor {
   info: CommandInfo = {
