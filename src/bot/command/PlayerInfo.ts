@@ -8,12 +8,30 @@ class PlayerInfo implements CommandExecutor {
   info: CommandInfo = {
     name: 'playerinfo',
     desc: '플레이어의 정보를 보여줍니다.',
-    alias: ['플레이어', '유저', 'pi'],
+    alias: ['플레이어', '유저'],
     isAdminOnly: false,
     props: 1
   }
 
-  async findUser(mention: User, msg: Message) {
+  async findUser(mention: User | undefined, msg: Message) {
+    const notFound = () => {
+      const embed = new MessageEmbed()
+        .setTitle('Error 404: NotFound')
+
+      if (mention)
+        embed.setDescription(`유저 ${mention.tag}를 찾을 수 없습니다.`)
+      else
+        embed.setDescription('유저를 찾을 수 없습니다.')
+
+      msg.channel.send(embed)
+      return
+    }
+
+    if (!mention) {
+      notFound()
+      return
+    }
+
     const user = await Users.findAll({
       where: {
         discord: { [Op.eq]: mention.id }
@@ -49,8 +67,22 @@ class PlayerInfo implements CommandExecutor {
     if (mention) {
       this.findUser(mention, msg)
     } else {
-      if (args.length < 1)
+      if (args.length < 1) {
         this.findUser(msg.author, msg)
+      } else {
+        const reg = /[0-1]*/
+        if (reg.test(args[0])) { // getting info by id
+          const user = client.users.cache.find(u => u.id == args[0])
+          this.findUser(user, msg)
+          return
+        } else { // get user by id
+          const token = msg.content.split(' ')
+          const nick = msg.content.slice(1, token.length)
+          const user = client.users.cache.find(u => u.username == nick)
+
+          this.findUser(user, msg)
+        }
+      }
     }
   }
 }
