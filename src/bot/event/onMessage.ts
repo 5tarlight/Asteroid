@@ -1,4 +1,4 @@
-import { Message, MessageEmbed} from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
@@ -10,6 +10,7 @@ import ItemInfo from "../command/ItemInfo";
 import PlanetInfo from "../command/PlanetInfo";
 import RocketInfo from "../command/RocketInfo";
 import Invite from "../command/Invite";
+import PlayerInfo from "../command/PlayerInfo";
 
 export const commands = [
   new Ping(),
@@ -18,6 +19,7 @@ export const commands = [
   new PlanetInfo(),
   new RocketInfo(),
   new Invite(),
+  new PlayerInfo()
 ]
 
 function onMessage (client: Asteroid, msg: Message) {
