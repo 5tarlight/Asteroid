@@ -62,6 +62,11 @@ class Database {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+      },
+      money: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+        defaultValue: 0.0
       }
     }, {
       sequelize: this.seq,
