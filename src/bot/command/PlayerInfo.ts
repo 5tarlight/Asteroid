@@ -55,6 +55,7 @@ class PlayerInfo implements CommandExecutor {
     const embed = new MessageEmbed()
       .setTitle(mention.tag)
       .addField('id', user[0].get('id'), true)
+      .addField('돈', user[0].get('money'), true)
       .addField('경험치', user[0].get('exp'), true)
       .addField('가입일', created, true)
       .addField('마지막 갱신', updated, true)
