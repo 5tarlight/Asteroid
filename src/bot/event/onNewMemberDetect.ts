@@ -25,9 +25,11 @@ async function onNewMemberDetect(client: Asteroid, user: User): Promise<boolean>
   playerCache.push(player)
   Logger.info(`${user.username} (${user.id}) cached`)
 
-  await Users.create({ discord: user.id })
-  Logger.info(`New user: ${user.tag} (${user.id})`)
-  return true
+  if (users.length < 1) {
+    await Users.create({ discord: user.id })
+    Logger.info(`New user: ${user.tag} (${user.id})`)
+    return true
+  } else return false
 }
 
 export default onNewMemberDetect
