@@ -11,8 +11,9 @@ import PlanetInfo from "../command/PlanetInfo";
 import RocketInfo from "../command/RocketInfo";
 import Invite from "../command/Invite";
 import PlayerInfo from "../command/PlayerInfo";
+import Player from "../../game/player/Player";
 
-export const commands = [
+export const commands: CommandExecutor[] = [
   new Ping(),
   new Help(),
   new ItemInfo(),
@@ -21,6 +22,8 @@ export const commands = [
   new Invite(),
   new PlayerInfo()
 ]
+
+export const playerCache: Player[] = []
 
 function onMessage (client: Asteroid, msg: Message) {
   const cfg = config()
