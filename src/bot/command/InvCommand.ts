@@ -2,7 +2,7 @@ import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 import { Inventory as InvModel } from "../../util/Database";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 import ItemManager from "../../game/item/ItemManager";
 import config from "../../configure";
 
