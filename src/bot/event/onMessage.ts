@@ -12,6 +12,7 @@ import RocketInfo from "../command/RocketInfo";
 import Invite from "../command/Invite";
 import PlayerInfo from "../command/PlayerInfo";
 import Player from "../../game/player/Player";
+import InvCommand from "../command/InvCommand";
 
 export const commands: CommandExecutor[] = [
   new Ping(),
@@ -20,7 +21,8 @@ export const commands: CommandExecutor[] = [
   new PlanetInfo(),
   new RocketInfo(),
   new Invite(),
-  new PlayerInfo()
+  new PlayerInfo(),
+  new InvCommand()
 ]
 
 export const playerCache: Player[] = []
