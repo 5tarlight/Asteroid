@@ -31,8 +31,7 @@ class GiveItem implements CommandExecutor {
       msg.channel.send(embed)
     }
 
-    let count = 1
-    let meta = 0
+    let meta = 1
     if (args.length < 2) {
       displayHelp()
       return
@@ -46,16 +45,7 @@ class GiveItem implements CommandExecutor {
         displayBadRequest(args[2])
         return
       }
-      count = parseInt(args[2])
-    }
-
-    if (args.length > 3) {
-      if (
-        isNaN(+args[3]) || parseInt(args[3]) < 0) {
-        displayBadRequest(args[3])
-        return
-      }
-      meta = parseInt(args[3])
+      meta = parseInt(args[2])
     }
 
     const user = msg.mentions.users.first()
@@ -95,7 +85,6 @@ class GiveItem implements CommandExecutor {
     Inventory.create({
       item: item.info.name,
       owner: user.id,
-      count: count,
       meta: meta
     }).then(() => {
       const embed = new MessageEmbed()

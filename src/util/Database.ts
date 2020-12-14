@@ -116,10 +116,6 @@ class Database {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      count: {
-        type: DataTypes.INTEGER,
-        defaultValue: 1
-      },
       meta: {
         type: DataTypes.INTEGER,
         defaultValue: 0
