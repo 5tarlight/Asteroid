@@ -39,7 +39,7 @@ class Asteroid extends Client {
         if (!c.name) {
           setTimeout(() => getGuildData(c), 1000)
         } else {
-          onGuildCreate(this, c).then(() => Logger.debug(`Success to load ${c.name} (${c.id}`))
+          onGuildCreate(this, c).then(() => Logger.debug(`Success to load ${c.name} (${c.id})`))
         }
       }
 
