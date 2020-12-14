@@ -3,6 +3,7 @@ import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 import ItemManager from "../../game/item/ItemManager";
 import UsableItem from "../../game/item/UsableItem";
+import config from "../../configure";
 
 class ItemInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -14,6 +15,15 @@ class ItemInfo implements CommandExecutor {
   }
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
+    if (args.length < 1) {
+      const embed = new MessageEmbed()
+        .setTitle('사용법')
+        .setDescription(`${config().prefix}iteminfo <아이템>`)
+
+      msg.channel.send(embed)
+      return
+    }
+
     const name = args[0]
     const item = ItemManager.getItem(name)
 

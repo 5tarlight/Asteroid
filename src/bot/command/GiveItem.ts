@@ -3,7 +3,7 @@ import Asteroid from "../Asteroid";
 import { Message, MessageEmbed } from "discord.js";
 import ItemManager from "../../game/item/ItemManager";
 import config from "../../configure";
-import {Inventory, Users} from "../../util/Database";
+import { Inventory, Users } from "../../util/Database";
 import { Op } from "sequelize";
 
 class GiveItem implements CommandExecutor {
