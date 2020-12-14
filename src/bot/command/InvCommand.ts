@@ -24,7 +24,7 @@ class InvCommand implements CommandExecutor {
       msg.channel.send(embed)
       return
     }
-    const name = msg.content.split(' ').slice(1).join(' ')
+    const name = msg.content.split(' ').slice(1).join(' ').trim()
     const item = ItemManager.getItem(name)
 
     if (!item) {

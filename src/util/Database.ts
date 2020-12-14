@@ -109,7 +109,7 @@ class Database {
         autoIncrement: true
       },
       owner: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       item: {
