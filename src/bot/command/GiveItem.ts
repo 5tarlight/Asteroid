@@ -19,7 +19,7 @@ class GiveItem implements CommandExecutor {
     const displayHelp = () => {
       const embed = new MessageEmbed()
         .setTitle('사용법')
-        .setDescription(`${config().prefix}giveitem <플레이어> <아이템>`)
+        .setDescription(`${config().prefix}giveitem <플레이어> <아이템> [개수] [메타]`)
 
       msg.channel.send(embed)
     }
@@ -29,23 +29,6 @@ class GiveItem implements CommandExecutor {
         .setDescription(`${num}는 유효한 숫자가 아닙니다.`)
 
       msg.channel.send(embed)
-    }
-
-    let meta = 1
-    if (args.length < 2) {
-      displayHelp()
-      return
-    }
-    if (args.length > 2) {
-      if (
-        isNaN(+args[2]) ||
-        parseInt(args[2]) < 1 ||
-        parseInt(args[2]) > 64
-      ) {
-        displayBadRequest(args[2])
-        return
-      }
-      meta = parseInt(args[2])
     }
 
     const user = msg.mentions.users.first()
@@ -70,7 +53,61 @@ class GiveItem implements CommandExecutor {
       return
     }
 
-    const name = msg.content.split(' ').slice(2).join(' ').trim()
+    const checkCount = (c: number): boolean => {
+      if (c < 1) {
+        displayBadRequest(c.toString())
+        return false
+      } else {
+        return true
+      }
+    }
+    const checkMeta = (m: number): boolean => {
+      if (m < 0) {
+        displayBadRequest(m.toString())
+        return false
+      } else {
+        return true
+      }
+    }
+
+    let count = 1
+    let meta = 0
+    let hasCount = false
+    let hasMeta = false
+    // Check if the query has count props and meta value
+    if (args.length > 2) {
+      const last = args[args.length - 1]
+      const second = args[args.length - 2]
+
+      if (!isNaN(+last)) {
+        if (!isNaN(+second)) {
+          hasCount = true
+          hasMeta = true
+        } else {
+          hasCount = true
+          hasMeta = false
+        }
+      }
+
+      if (hasCount && hasMeta) {
+        if (checkCount(parseInt(second)) && checkMeta(parseInt(last))) {
+          count = parseInt(second)
+          meta = parseInt(last)
+        }
+      } else if (hasCount && !hasMeta) {
+        if (checkCount(parseInt(last))) {
+          count = parseInt(last)
+          meta = 0
+        }
+      }
+    }
+
+    let tc = 0
+    if (hasCount && hasMeta) tc = 2
+    else if (hasCount && !hasMeta) tc = 1
+
+    const token = msg.content.split(' ')
+    const name = token.slice(2, token.length - tc).join(' ').trim()
     const item = ItemManager.getItem(name)
 
     if (!item) {
@@ -82,16 +119,22 @@ class GiveItem implements CommandExecutor {
       return
     }
 
-    Inventory.create({
-      item: item.info.name,
-      owner: user.id,
-      meta: meta
-    }).then(() => {
+    const em = new MessageEmbed()
+      .setTitle('처리중...')
+    msg.channel.send(em).then(async m => {
+      for (let i = 0; i < count; i++) {
+        await Inventory.create({
+          item: item.info.name,
+          owner: user.id,
+          meta: meta
+        })
+      }
+
       const embed = new MessageEmbed()
         .setTitle('성공')
-        .setDescription(`유저 ${user.tag}에게 ${item.info.name}이 지급 되었습니다.`)
+        .setDescription(`유저 ${user.tag}에게 ${item.info.name}:${meta} ${count}개가 지급 되었습니다.`)
 
-      msg.channel.send(embed)
+      await m.edit(embed)
     })
   }
 }
