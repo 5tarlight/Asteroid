@@ -46,9 +46,9 @@ class InvCommand implements CommandExecutor {
     })
 
     if (items.length < 1) {
-      msg.channel.send(`아이템 ${item.info.name}이 없습니다.`)
+      msg.channel.send(`아이템 \`${item.info.name}\`이 없습니다.`)
     } else {
-      msg.channel.send(`아이템 ${item.info.name}을 ${items.length}개 소지하고 있습니다.`)
+      msg.channel.send(`아이템 \`${item.info.name}\`을 \`${items.length}\`개 소지하고 있습니다.`)
     }
   }
 }
