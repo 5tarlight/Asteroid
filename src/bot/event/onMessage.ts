@@ -14,6 +14,7 @@ import PlayerInfo from "../command/PlayerInfo";
 import Player from "../../game/player/Player";
 import InvCommand from "../command/InvCommand";
 import GiveItem from "../command/GiveItem";
+import Explore from "../command/Explore";
 
 export const commands: CommandExecutor[] = [
   new Ping(),
@@ -24,7 +25,8 @@ export const commands: CommandExecutor[] = [
   new Invite(),
   new PlayerInfo(),
   new InvCommand(),
-  new GiveItem()
+  new GiveItem(),
+  new Explore()
 ]
 
 export const playerCache: Player[] = []
