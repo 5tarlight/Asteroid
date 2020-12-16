@@ -1,5 +1,5 @@
 import Item from "../item/Item";
-import InventoryOutofBoundError from "../../error/InventoryOutofBoundError";
+import InventoryOutOfBoundError from "../../error/InventoryOutOfBoundError";
 
 class Inventory {
   public items: Item[]
@@ -14,7 +14,7 @@ class Inventory {
 
   get(index: number) {
     if (index < 0 || index >= this.items.length) {
-      throw new InventoryOutofBoundError('')
+      throw new InventoryOutOfBoundError('')
     }
     return this.items[index]
   }
