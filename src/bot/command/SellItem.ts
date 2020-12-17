@@ -20,7 +20,7 @@ class SellItem implements CommandExecutor {
     if (args.length < 1) {
       const embed = new MessageEmbed()
         .setTitle('사용법')
-        .setDescription(`${config().prefix}sellitem <아이템> [개수]`)
+        .setDescription(`${config().prefix}sellitem <아이템> [개수|all]`)
 
       msg.channel.send(embed)
       return
@@ -28,9 +28,13 @@ class SellItem implements CommandExecutor {
 
     let tc = 0
     let count = 1
+    let isAll = false
     const last = args[args.length - 1]
 
-    if (!isNaN(+last) && Number.isInteger(+last)) {
+    if (last == 'all') {
+      isAll = true
+      tc = 1
+    } else if ((!isNaN(+last) && Number.isInteger(+last))) {
       count = parseInt(last)
       tc = 1
     }
@@ -56,6 +60,8 @@ class SellItem implements CommandExecutor {
         ]
       }
     })
+
+    if (isAll) count = currentItems.length
 
     try {
       const tradable = targetItem as unknown as TradableItem
