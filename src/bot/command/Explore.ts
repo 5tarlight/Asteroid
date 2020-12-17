@@ -8,6 +8,7 @@ import Item from "../../game/item/Item";
 import ItemManager from "../../game/item/ItemManager";
 import Logger from "../../Logger";
 import {Inventory} from "../../util/Database";
+import delay from "../../util/delay";
 
 class Explore implements CommandExecutor {
   info: CommandInfo = {
@@ -16,6 +17,10 @@ class Explore implements CommandExecutor {
     props: 1,
     alias: ['탐험'],
     isAdminOnly: false
+  }
+
+  private static surround(msg: string): string {
+    return '```diff\n' + msg + '\n```'
   }
 
   async execute(client: Asteroid, msg: Message, args: string[]): Promise<void> {
@@ -46,10 +51,11 @@ class Explore implements CommandExecutor {
       const resultItems: { item: Item, count: number }[] = []
 
       const count = 10
-      const embed = new MessageEmbed()
-        .setTitle('채광하는중...')
-      let m = await msg.channel.send(embed)
+      let embed = '채광을 준비하는중...'
+      let m = await msg.channel.send(Explore.surround(embed))
+      await delay(500)
 
+      embed += '\n'
       for (let i = 0; i < count; i++) {
         const index = Math.floor(Math.random() * items.length)
         const item = items[index]
@@ -68,6 +74,8 @@ class Explore implements CommandExecutor {
             return
           }
 
+          embed += `\n+ ${tem.info.name}`
+          m = await m.edit(Explore.surround(embed))
           const filtered = resultItems.filter(({item}) => item.info.name == tem.info.name)
 
           if (filtered.length < 1) {
@@ -77,10 +85,13 @@ class Explore implements CommandExecutor {
               if (item.info.name == tem.info.name) resultItems[index].count += 1
             })
           }
+          await delay(250)
         }
       }
 
-      m = await m.edit(embed.setTitle('창고에 적재하는중...'))
+      embed += '\n\n창고에 적재하는중...'
+      await delay(2000)
+      m = await m.edit(Explore.surround(embed))
 
       const final = new MessageEmbed()
         .setTitle('탐험 완료!')
@@ -97,7 +108,8 @@ class Explore implements CommandExecutor {
         final.addField(ri.item.info.name, ri.count + '개', true)
       }
 
-      m.edit(final)
+      m.delete()
+      msg.channel.send(final)
     } catch (e) {
       const embed = new MessageEmbed()
         .setTitle('Error 400: BadRequest')
