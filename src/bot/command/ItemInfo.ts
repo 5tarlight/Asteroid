@@ -24,7 +24,7 @@ class ItemInfo implements CommandExecutor {
       return
     }
 
-    const name = args[0]
+    const name = msg.content.split(' ').slice(1).join(' $')
     const item = ItemManager.getItem(name)
 
     if (item == null) {
