@@ -79,8 +79,8 @@ class GiveItem implements CommandExecutor {
       const last = args[args.length - 1]
       const second = args[args.length - 2]
 
-      if (!isNaN(+last)) {
-        if (!isNaN(+second)) {
+      if (!isNaN(+last) && Number.isInteger(+last)) {
+        if (!isNaN(+second) && Number.isInteger(+second)) {
           hasCount = true
           hasMeta = true
         } else {
