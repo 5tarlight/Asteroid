@@ -16,6 +16,7 @@ import InvCommand from "../command/InvCommand";
 import GiveItem from "../command/GiveItem";
 import Explore from "../command/Explore";
 import SellItem from "../command/SellItem";
+import BuyItem from "../command/BuyItem";
 
 export const commands: CommandExecutor[] = [
   new Ping(),
@@ -28,7 +29,8 @@ export const commands: CommandExecutor[] = [
   new InvCommand(),
   new GiveItem(),
   new Explore(),
-  new SellItem()
+  new SellItem(),
+  new BuyItem()
 ]
 
 export const playerCache: Player[] = []
