@@ -1,10 +1,11 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import { Inventory as InvModel } from "../../util/Database";
 import { Op } from "sequelize";
 import ItemManager from "../../game/item/ItemManager";
 import config from "../../configure";
+import RichEmbed from "../../util/RichEmbed";
 
 class InvCommand implements CommandExecutor {
   info: CommandInfo = {
@@ -17,7 +18,7 @@ class InvCommand implements CommandExecutor {
 
   async execute(client: Asteroid, msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}inv <아이템 이름>`)
 
@@ -28,7 +29,7 @@ class InvCommand implements CommandExecutor {
     const item = ItemManager.getItem(name)
 
     if (!item) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`아이템 ${name}을 찾을 수 없습니다.`)
 

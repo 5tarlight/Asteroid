@@ -1,10 +1,11 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import ItemManager from "../../game/item/ItemManager";
 import config from "../../configure";
 import { Inventory, Users } from "../../util/Database";
 import { Op } from "sequelize";
+import RichEmbed from "../../util/RichEmbed";
 
 class GiveItem implements CommandExecutor {
   info: CommandInfo = {
@@ -17,14 +18,14 @@ class GiveItem implements CommandExecutor {
 
   async execute(client: Asteroid, msg: Message, args: string[]): Promise<void> {
     const displayHelp = () => {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}giveitem <플레이어> <아이템> [개수] [메타]`)
 
       msg.channel.send(embed)
     }
     const displayBadRequest = (num: string) => {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 400: BadRequest')
         .setDescription(`${num}는 유효한 숫자가 아닙니다.`)
 
@@ -45,7 +46,7 @@ class GiveItem implements CommandExecutor {
     })
 
     if (players.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('Error 404: NotFound')
         .setDescription(`플레이어 ${user.tag}을 찾을 수 없습니다.`)
 
@@ -111,7 +112,7 @@ class GiveItem implements CommandExecutor {
     const item = ItemManager.getItem(name)
 
     if (!item) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`아이템 ${name}을 찾을 수 없습니다.`)
 
@@ -119,7 +120,7 @@ class GiveItem implements CommandExecutor {
       return
     }
 
-    const em = new MessageEmbed()
+    const em = new RichEmbed()
       .setTitle('처리중...')
     msg.channel.send(em).then(async m => {
       for (let i = 0; i < count; i++) {
@@ -130,7 +131,7 @@ class GiveItem implements CommandExecutor {
         })
       }
 
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('succ')
         .setTitle('성공')
         .setDescription(`유저 ${user.tag}에게 ${item.info.name}:${meta} ${count}개가 지급 되었습니다.`)
 

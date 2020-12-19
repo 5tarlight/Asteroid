@@ -1,14 +1,15 @@
-import {Message, MessageEmbed} from "discord.js";
+import { Message } from "discord.js";
 import Asteroid from "../Asteroid";
-import CommandExecutor, {CommandInfo} from "./CommandExecutor";
+import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import config from "../../configure";
 import PlanetManager from "../../game/universe/PlanetManager";
 import Minable from "../../game/universe/Minable";
 import Item from "../../game/item/Item";
 import ItemManager from "../../game/item/ItemManager";
 import Logger from "../../Logger";
-import {Inventory} from "../../util/Database";
+import { Inventory } from "../../util/Database";
 import delay from "../../util/delay";
+import RichEmbed from "../../util/RichEmbed";
 
 class Explore implements CommandExecutor {
   info: CommandInfo = {
@@ -25,7 +26,7 @@ class Explore implements CommandExecutor {
 
   async execute(client: Asteroid, msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}explore <행성>`)
 
@@ -37,7 +38,7 @@ class Explore implements CommandExecutor {
     const planet = PlanetManager.getPlanet(name)
 
     if (!planet) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`행성 ${name}을 찾을 수 없습니다.`)
 
@@ -66,7 +67,7 @@ class Explore implements CommandExecutor {
           if (!tem) {
             Logger.err(`Cannot find item ${item.item} (${__filename})`)
 
-            const ee = new MessageEmbed()
+            const ee = new RichEmbed('err')
               .setTitle('Internal Error')
               .setDescription('개발자에게 연락해 주십시오.')
 
@@ -93,7 +94,7 @@ class Explore implements CommandExecutor {
       await delay(2000)
       m = await m.edit(Explore.surround(embed))
 
-      const final = new MessageEmbed()
+      const final = new RichEmbed('succ')
         .setTitle('탐험 완료!')
 
       for (const ri of resultItems) {
@@ -111,7 +112,7 @@ class Explore implements CommandExecutor {
       m.delete()
       msg.channel.send(final)
     } catch (e) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 400: BadRequest')
         .setDescription(`행성 ${name}은 채광할 수 있는 행성이 아닙니다.`)
 

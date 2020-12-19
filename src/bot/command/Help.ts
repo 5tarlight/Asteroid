@@ -1,7 +1,8 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import { commands } from '../event/onMessage'
+import RichEmbed from "../../util/RichEmbed";
 
 class Help implements CommandExecutor {
   info: CommandInfo = {
@@ -19,7 +20,7 @@ class Help implements CommandExecutor {
       )
 
       if (cmd.length === 0) {
-        const embed = new MessageEmbed()
+        const embed = new RichEmbed('err')
           .setTitle('Error 404: NotFound')
           .setColor('ff392b')
 
@@ -27,7 +28,7 @@ class Help implements CommandExecutor {
         return
       }
 
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('도움말')
         .setDescription(`${cmd[0].info.name}, ${cmd[0].info.alias.join(', ')}`)
 
@@ -37,13 +38,13 @@ class Help implements CommandExecutor {
 
       msg.channel.send(embed)
     } else {
-      let embed = new MessageEmbed()
+      let embed = new RichEmbed()
         .setTitle('도움말')
 
       commands.forEach((cmd: CommandExecutor, i: number) => {
         if (i !== 0 && i % 20 === 0) {
           msg.author.send(embed)
-          embed = new MessageEmbed()
+          embed = new RichEmbed()
             .setTitle('도움말 (계속)')
         }
 

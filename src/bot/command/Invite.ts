@@ -1,6 +1,7 @@
-import CommandExecutor, {CommandInfo} from "./CommandExecutor";
+import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed, Permissions } from "discord.js";
+import { Message, Permissions } from "discord.js";
+import RichEmbed from "../../util/RichEmbed";
 
 class Invite implements CommandExecutor {
   info: CommandInfo = {
@@ -16,7 +17,7 @@ class Invite implements CommandExecutor {
     const permission = Permissions.ALL
     const link = `https://discord.com/api/oauth2/authorize?client_id=${id}&permissions=${permission}&scope=bot`
 
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed()
       .setTitle('초대링크')
       .setDescription('클릭시 디스코드 공식 사이트로 이동합니다.')
       .setURL(link)

@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import Logger from "../../Logger";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
@@ -17,6 +17,7 @@ import GiveItem from "../command/GiveItem";
 import Explore from "../command/Explore";
 import SellItem from "../command/SellItem";
 import BuyItem from "../command/BuyItem";
+import RichEmbed from "../../util/RichEmbed";
 
 export const commands: CommandExecutor[] = [
   new Ping(),
@@ -43,7 +44,7 @@ function onMessage (client: Asteroid, msg: Message) {
   if (!msg.content.startsWith(cfg.prefix)) return
 
   const sendNewMember = (msg: Message) => {
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed('succ')
       .setTitle('신규 유저 추가됨')
       .setDescription('<@352755226224361482>에게 연락해 데이터를 삭제 할 수 있습니다.')
 
@@ -54,7 +55,7 @@ function onMessage (client: Asteroid, msg: Message) {
     return cfg.admin.split(' ').includes(msg.author.id)
   }
   const denyPermission = () => {
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed('err')
       .setTitle('Fatal: Permission Denied')
       .setColor('ff392b')
 

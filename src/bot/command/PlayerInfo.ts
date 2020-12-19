@@ -1,8 +1,9 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed, User } from "discord.js";
+import { Message, User } from "discord.js";
 import { Users } from "../../util/Database";
 import { Op } from "sequelize";
+import RichEmbed from "../../util/RichEmbed";
 
 class PlayerInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -15,7 +16,7 @@ class PlayerInfo implements CommandExecutor {
 
   async findUser(mention: User | undefined, msg: Message) {
     const notFound = () => {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
 
       if (mention)
@@ -39,7 +40,7 @@ class PlayerInfo implements CommandExecutor {
     })
 
     if (user.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`유저 ${mention.tag}를 찾을 수 없습니다.`)
 
@@ -52,7 +53,7 @@ class PlayerInfo implements CommandExecutor {
     // @ts-ignore
     const updated = user[0].get('updatedAt').toString().split(' ').slice(0, 5).join(' ')
 
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed()
       .setTitle(mention.tag)
       .addField('id', user[0].get('id'), true)
       .addField('돈', user[0].get('money'), true)

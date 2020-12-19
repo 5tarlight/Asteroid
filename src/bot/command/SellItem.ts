@@ -1,11 +1,12 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import Asteroid from "../Asteroid";
 import config from "../../configure";
 import {Inventory, Users} from "../../util/Database";
 import { Op } from "sequelize";
 import ItemManager from "../../game/item/ItemManager";
 import TradableItem from "../../game/item/TradableItem";
+import RichEmbed from "../../util/RichEmbed";
 
 class SellItem implements CommandExecutor {
   info: CommandInfo = {
@@ -18,7 +19,7 @@ class SellItem implements CommandExecutor {
 
   async execute(client: Asteroid, msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}sellitem <아이템> [개수|all]`)
 
@@ -44,7 +45,7 @@ class SellItem implements CommandExecutor {
     const targetItem = ItemManager.getItem(name)
 
     if (!targetItem) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`아이템 ${name}을 찾을 수 없습니다.`)
 
@@ -67,7 +68,7 @@ class SellItem implements CommandExecutor {
       const tradable = targetItem as unknown as TradableItem
 
       if (currentItems.length < count) {
-        const embed = new MessageEmbed()
+        const embed = new RichEmbed('err')
           .setTitle('Error 400: BadRequest')
           .setDescription(`아이템 ${name}이 충분하지 않습니다.`)
           .addField('팁', `${config().prefix}inv 명령어로 아이템 개수를 확인할 수 있습니다.`, true)
@@ -109,13 +110,13 @@ class SellItem implements CommandExecutor {
         }
       })
 
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('succ')
         .setTitle('판매 완료!')
         .setDescription(`${profit}원을 획득했습니다.`)
 
       msg.channel.send(embed)
     } catch (e) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 400: BadRequest')
         .setDescription(`아이템 ${name}은 팔 수 없는 아이템입니다.`)
 

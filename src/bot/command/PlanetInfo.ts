@@ -1,11 +1,12 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import config from "../../configure";
 import PlanetManager from "../../game/universe/PlanetManager";
 import Minable from "../../game/universe/Minable";
 import ItemManager from "../../game/item/ItemManager";
 import Logger from "../../Logger";
+import RichEmbed from "../../util/RichEmbed";
 
 class PlanetInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -18,7 +19,7 @@ class PlanetInfo implements CommandExecutor {
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
     if (args.length === 0) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}planetinfo <행성이름>`)
 
@@ -30,7 +31,7 @@ class PlanetInfo implements CommandExecutor {
     const planet = PlanetManager.getPlanet(name)
 
     if (planet == null) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`행성 ${name}을 찾을 수 없습니다.`)
 
@@ -38,7 +39,7 @@ class PlanetInfo implements CommandExecutor {
       return
     }
 
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed()
       .setTitle(planet?.info.name)
       .addField('착륙 가능?', planet.info.dockable ? '예' : '아니요')
 
@@ -55,7 +56,7 @@ class PlanetInfo implements CommandExecutor {
         if (!item) {
           Logger.err(`Cannot find item ${mine.item} (${__filename})`)
 
-          const ee = new MessageEmbed()
+          const ee = new RichEmbed('err')
             .setTitle('Internal Error')
             .setDescription('개발자에게 연락해 주십시오.')
 

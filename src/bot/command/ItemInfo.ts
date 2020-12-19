@@ -1,9 +1,10 @@
 import CommandExecutor, { CommandInfo } from "./CommandExecutor";
 import Asteroid from "../Asteroid";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import ItemManager from "../../game/item/ItemManager";
 import UsableItem from "../../game/item/UsableItem";
 import config from "../../configure";
+import RichEmbed from "../../util/RichEmbed";
 
 class ItemInfo implements CommandExecutor {
   info: CommandInfo = {
@@ -16,7 +17,7 @@ class ItemInfo implements CommandExecutor {
 
   execute(client: Asteroid, msg: Message, args: string[]): void {
     if (args.length < 1) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed()
         .setTitle('사용법')
         .setDescription(`${config().prefix}iteminfo <아이템>`)
 
@@ -28,7 +29,7 @@ class ItemInfo implements CommandExecutor {
     const item = ItemManager.getItem(name)
 
     if (item == null) {
-      const embed = new MessageEmbed()
+      const embed = new RichEmbed('err')
         .setTitle('Error 404: NotFound')
         .setDescription(`아이템 ${name}을 찾을 수 없습니다.`)
         .setColor('ff392b')
@@ -37,7 +38,7 @@ class ItemInfo implements CommandExecutor {
       return
     }
 
-    const embed = new MessageEmbed()
+    const embed = new RichEmbed('err')
       .setTitle(item.info.name)
 
     const isUsable = (object: any): object is UsableItem => {
