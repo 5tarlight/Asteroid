@@ -1,7 +1,7 @@
 import { MessageEmbed } from "discord.js";
 
 class RichEmbed extends MessageEmbed {
-  constructor(type: string | undefined) {
+  constructor(type: string = 'default') {
     super()
 
     switch(type) {
