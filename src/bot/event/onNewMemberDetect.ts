@@ -15,6 +15,12 @@ async function onNewMemberDetect(client: Asteroid, user: User): Promise<boolean>
     }
   })
 
+  if (users.length < 1) {
+    await Users.create({ discord: user.id })
+    Logger.info(`New user: ${user.tag} (${user.id})`)
+    return true
+  } else return false
+
   const player = new Player(user.username, user.id)
   // @ts-ignore
   player.exp = users[0].get('exp')
@@ -25,11 +31,7 @@ async function onNewMemberDetect(client: Asteroid, user: User): Promise<boolean>
   playerCache.push(player)
   Logger.info(`${user.username} (${user.id}) cached`)
 
-  if (users.length < 1) {
-    await Users.create({ discord: user.id })
-    Logger.info(`New user: ${user.tag} (${user.id})`)
-    return true
-  } else return false
+
 }
 
 export default onNewMemberDetect
