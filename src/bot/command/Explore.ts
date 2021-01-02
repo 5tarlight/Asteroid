@@ -52,8 +52,8 @@ class Explore implements CommandExecutor {
       const resultItems: { item: Item, count: number }[] = []
 
       const count = 10
-      let embed = '채광을 준비하는중...'
-      let m = await msg.channel.send(Explore.surround(embed))
+      let embed = '\n채광을 준비하는중...'
+      let m = await msg.channel.send(`${msg.author}\n${Explore.surround(embed)}`)
       await delay(500)
 
       embed += '\n'
@@ -76,7 +76,7 @@ class Explore implements CommandExecutor {
           }
 
           embed += `\n+ ${tem.info.name}`
-          m = await m.edit(Explore.surround(embed))
+          m = await m.edit(`${msg.author}\n${Explore.surround(embed)}`)
           const filtered = resultItems.filter(({item}) => item.info.name == tem.info.name)
 
           if (filtered.length < 1) {
@@ -92,10 +92,11 @@ class Explore implements CommandExecutor {
 
       embed += '\n\n창고에 적재하는중...'
       await delay(2000)
-      m = await m.edit(Explore.surround(embed))
+      m = await m.edit(`${msg.author}\n${Explore.surround(embed)}`)
 
       const final = new RichEmbed('succ')
-        .setTitle('탐험 완료!')
+        .setTitle(`탐험 완료!`)
+        .setDescription(msg.author)
 
       for (const ri of resultItems) {
         for (let i = 0; i < ri.count; i++) {
