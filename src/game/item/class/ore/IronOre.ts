@@ -1,5 +1,5 @@
-import Item, { ItemInfo } from "./Item";
-import TradableItem from "./TradableItem";
+import Item, { ItemInfo } from "../../Item";
+import TradableItem from "../../TradableItem";
 
 class IronOre implements Item, TradableItem {
   price: number = 5;

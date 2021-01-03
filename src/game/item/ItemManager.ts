@@ -1,10 +1,10 @@
-import Dirt from "./Dirt";
-import Stone from "./Stone";
+import Dirt from "./class/Dirt";
+import Stone from "./class/Stone";
 import Item from "./Item";
 import { Items } from "../../util/Database";
 import { Op } from "sequelize";
 import Logger from "../../Logger";
-import IronOre from "./IronOre";
+import IronOre from "./class/ore/IronOre";
 
 class ItemManager {
   static items = {
